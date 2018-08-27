@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "x86intrin.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "array.h": "c"
     }
 }
