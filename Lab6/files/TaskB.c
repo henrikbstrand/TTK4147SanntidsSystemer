@@ -7,7 +7,7 @@
 #include <sched.h>
 #include <unistd.h>
 #include "io.h"
-/*
+
 /// Assigning CPU core ///
 int set_cpu(int cpu_number){
 	cpu_set_t cpu;
@@ -24,6 +24,9 @@ void* disturb(void* args){
 }
 
 void respond(void * argPin){
+
+	long period = 1*1000*1000;
+	rt_task_set_periodic(NULL, TM_NOW, period);
 
 	int pin = (*(int*)argPin);
 
@@ -51,6 +54,8 @@ void respond(void * argPin){
 			rt_printf("Task failed to yield\n");
 			rt_task_delete(NULL);
 		}
+		
+		rt_task_wait_period(NULL);
 	}
 }
 
@@ -77,12 +82,12 @@ int main(){
 	RT_TASK RespondTaskC;
 	rt_task_create(&RespondTaskC, "ResponsC", 0, 50, T_CPU(1));
 	rt_task_start(&RespondTaskC, respond, &pinC);
-
+/*
 	pthread_t disturbanceThreads[10];
 	for (int i = 0; i < 10; i++){
 		pthread_create(&disturbanceThreads[i], NULL, disturb, NULL);
 	}
-
+*/
 	while(1){}
 	return 1;
-}*/
+}

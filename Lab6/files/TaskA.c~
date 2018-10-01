@@ -28,7 +28,7 @@ void respond(void * argPin){
 	int pin = (*(int*)argPin);
 
 	//Start timer
-	unsigned long duration = 10*1000*1000;  // 10 second timeout
+	unsigned long duration = 100000000000;  // 10 second timeout
 	unsigned long endTime = rt_timer_read() + duration;
 
 	while(1){
@@ -40,6 +40,7 @@ void respond(void * argPin){
 			io_write(pin, 0);
 			rt_timer_spin(5000);
 			io_write(pin, 1);
+		}
 
 		if(rt_timer_read() > endTime){
 			rt_printf("Time expired\n");
@@ -64,24 +65,24 @@ int main(){
 
 	int pinA = 1;
 	RT_TASK RespondTaskA;
-	rt_task_create(&RespondTaskA, "ResponsA", 0, 0, T_CPU(1));
+	rt_task_create(&RespondTaskA, "ResponsA", 0, 50, T_CPU(1));
 	rt_task_start(&RespondTaskA, respond, &pinA);
 
 	int pinB = 2;
 	RT_TASK RespondTaskB;
-	rt_task_create(&RespondTaskB, "ResponsB", 0, 0, T_CPU(1));
+	rt_task_create(&RespondTaskB, "ResponsB", 0, 50, T_CPU(1));
 	rt_task_start(&RespondTaskB, respond, &pinB); 
 
 	int pinC = 3;
 	RT_TASK RespondTaskC;
-	rt_task_create(&RespondTaskC, "ResponsC", 0, 0, T_CPU(1));
+	rt_task_create(&RespondTaskC, "ResponsC", 0, 50, T_CPU(1));
 	rt_task_start(&RespondTaskC, respond, &pinC);
-
+/*
 	pthread_t disturbanceThreads[10];
 	for (int i = 0; i < 10; i++){
 		pthread_create(&disturbanceThreads[i], NULL, disturb, NULL);
 	}
-	
+*/
 	while(1){}
 	return 1;
 }
