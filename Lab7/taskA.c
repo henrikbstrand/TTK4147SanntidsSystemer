@@ -7,6 +7,7 @@
 #include <sched.h>
 #include <unistd.h>
 #include <native/sem.h>
+#include "taskA.h"
 
 
 struct param{
@@ -19,9 +20,9 @@ void waiter(struct param *par){
 	rt_printf("%d got SEM \n", par->id);
 }
 
-/*
 
-int main(){
+
+int taskA(){
 	rt_print_auto_init(1);
 	mlockall(MCL_CURRENT | MCL_FUTURE);
 
@@ -58,4 +59,4 @@ int main(){
 	rt_sem_delete(&sem);
 
 	return 1;
-}*/
+}

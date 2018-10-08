@@ -21,7 +21,7 @@ void waiter(struct param *par){
 
 
 
-int main(){
+int taskA(){
 	rt_print_auto_init(1);
 	mlockall(MCL_CURRENT | MCL_FUTURE);
 

@@ -7,7 +7,6 @@
 #include <sched.h>
 #include <unistd.h>
 #include <native/sem.h>
-#include "taskB.h"
 
 
 RT_SEM broadcast;
@@ -58,7 +57,7 @@ void high(){
 
 
 
-int taskB(){
+int main(){
 	rt_print_auto_init(1);
 	mlockall(MCL_CURRENT | MCL_FUTURE);
 
