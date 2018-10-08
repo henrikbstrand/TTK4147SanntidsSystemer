@@ -8,14 +8,6 @@
 #include <unistd.h>
 #include <native/sem.h>
 
-/// Assigning CPU core ///
-int set_cpu(int cpu_number){
-	cpu_set_t cpu;
-	CPU_ZERO(&cpu);
-	CPU_SET(cpu_number, &cpu);
-	return pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpu);
-}
-
 
 struct param{
 	int id;
@@ -27,7 +19,7 @@ void waiter(struct param *par){
 	rt_printf("%d got SEM \n", par->id);
 }
 
-
+/*
 
 int main(){
 	rt_print_auto_init(1);
@@ -53,11 +45,12 @@ int main(){
 	rt_task_start(&TaskA, waiter, &par1);
 
 	RT_TASK TaskB;
-	rt_task_create(&TaskB, "B", 0, 50, T_CPU(1));
+	rt_task_create(&TaskB, "B", 0, 52, T_CPU(1));
 	rt_task_start(&TaskB, waiter, &par2);
 
 	rt_task_sleep(100000000);
 
+	rt_printf("brodcastings sem \n");
 	rt_sem_broadcast(&sem);
 
 	rt_task_sleep(100000000);
@@ -65,4 +58,4 @@ int main(){
 	rt_sem_delete(&sem);
 
 	return 1;
-}
+}*/
